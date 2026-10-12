@@ -1,6 +1,7 @@
 'use strict';
 const EMOTION_EVENT_RANGES={prepare:[899,940],'lost-subway':[940,990],'locate-buramsan':[990,1100],'return-home':[1100,1165],'locate-oido':[1165,1248],'station-confirmed':[1218,1248],'leave-family':[1248,1280],'drive-oido':[1280,1355],'approach-oido':[1355,1397],reunite:[1397,1490],'drive-home':[1490,1588],'home-end':[1588,1636]};
 const EMOTION_COLORS={neutral:'#f5f5ef',anxiety:'#d73630',release:'#58c6aa'};
+let emotionArtSequence=0;
 function emotionWords(eventIds){return EMOTION_WORDS.filter(w=>eventIds.includes(w.event));}
 function emotionWordSVG(words,w,h){
  const lo=Math.min(...words.map(p=>p.x)),hi=Math.max(...words.map(p=>p.x)),top=Math.min(...words.map(p=>p.y)),bottom=Math.max(...words.map(p=>p.y));
@@ -10,7 +11,10 @@ function emotionWordSVG(words,w,h){
 }
 function emotionSceneHTML(scene,eventOverride=null){
  const ids=eventOverride?[eventOverride]:scene.id==='scene-03'?['locate-oido']:scene.id==='scene-05'?['approach-oido','reunite']:[scene.event],words=emotionWords(ids),[w,h]=scene.size;
- return `<div class="emotion-layer" data-emotion-scene="${scene.id}"><svg class="emotion-composition" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeText(scene.title)}의 검은 콜라주와 원본 감정어"><image class="black-collage" href="${scene.asset}.webp" width="${w}" height="${h}"/>${emotionWordSVG(words,w,h)}</svg><div class="emotion-reading">${words.map(p=>`<button class="emotion-word ${p.tone}" data-emotion-word data-emotion-event="${p.event}" aria-pressed="false">${escapeText(p.text)}</button>`).join('')}</div></div>`;
+ const filterId=`emotion-black-${++emotionArtSequence}`;
+ // Native SVG primitives also render on Safari, where CSS filters on <image> differ.
+ const blackFilter=`<defs><filter id="${filterId}" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="table" tableValues="0 0 .05 .17 .24"/><feFuncG type="table" tableValues="0 0 .05 .17 .24"/><feFuncB type="table" tableValues="0 0 .05 .17 .24"/></feComponentTransfer></filter></defs>`;
+ return `<div class="emotion-layer" data-emotion-scene="${scene.id}"><svg class="emotion-composition" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeText(scene.title)}의 검은 콜라주와 원본 감정어">${blackFilter}<g class="black-collage" filter="url(#${filterId})"><image href="${scene.asset}.webp" width="${w}" height="${h}"/></g>${emotionWordSVG(words,w,h)}</svg><div class="emotion-reading">${words.map(p=>`<button class="emotion-word ${p.tone}" data-emotion-word data-emotion-event="${p.event}" aria-pressed="false">${escapeText(p.text)}</button>`).join('')}</div></div>`;
 }
 function emotionPassageHTML(p){const words=emotionWords([p.event]);return `<div class="passage-emotions" aria-label="이 구간의 원본 감정어">${words.map(w=>`<button class="emotion-word ${w.tone}" data-emotion-word aria-pressed="false">${escapeText(w.text)}</button>`).join('')}</div>`;}
 function panoramaHTML(){
