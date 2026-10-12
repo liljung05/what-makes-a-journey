@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="지하철에 두고 내린 가방을 찾아가는 길. 분실에서 회수까지, 불안에서 여행까지 이어지는 인터랙티브 포스터.">
+<title>무엇이 여행을 여행으로 만드는가</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="immersion.css">
+<link rel="stylesheet" href="entry.css">
+<link rel="preload" as="image" href="home-start.webp">
+<script src="content.js" defer></script>
+<script src="emotion-content.js" defer></script>
+<script src="emotion.js" defer></script>
+<script src="art.js" defer></script>
+<script src="app.js" defer></script>
+<script src="motion.js" defer></script>
+<script src="chapters.js" defer></script>
+<script src="immersion.js" defer></script>
+<script src="entry.js" defer></script>
+</head>
+<body>
+<section id="intro" aria-labelledby="intro-title">
+  <div class="intro-top"><span>INTERACTIVE POSTER</span><span>분실에서 회수까지</span></div>
+  <div class="intro-heading">
+    <h1 id="intro-title">무엇이 <em>여행</em>을<br><em>여행</em>으로 만드는가</h1>
+    <div class="english-title"><span></span>Controlled<br>Liberation</div>
+  </div>
+  <p class="intro-subtitle">주의력 결핍이 여행하는 방법</p>
+  <div class="intro-bottom">
+    <div class="intro-palette" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="intro-summary">지하철에 두고 내린 맥북 가방은 오이도역으로 향했다.<br>가족과 가방을 찾으러 가는 길은 뜻밖의 여행으로 바뀌었다.</p>
+    <button id="intro-reveal" aria-expanded="false" aria-controls="intro-modes">화면을 한 번 클릭해 주세요 <span aria-hidden="true">＋</span></button>
+    <nav id="intro-modes" hidden aria-label="여정을 경험하는 세 가지 방식">
+      <button id="start" data-entry-mode="data"><span class="entry-number">01</span><strong>자료 <i aria-hidden="true">↗</i></strong><span class="entry-description">사진과 해설로 <br>사건의 흐름을 읽습니다.</span></button>
+      <button id="start-emotion" data-entry-mode="emotion"><span class="entry-number">02</span><strong>감정 <i aria-hidden="true">↗</i></strong><span class="entry-description">검은 콜라주와 감정어로 <br>같은 장면을 다르게 느낍니다.</span></button>
+      <button id="start-immersion" data-entry-mode="immersive"><span class="entry-number">03</span><strong>몰입 <i aria-hidden="true">↗</i></strong><span class="entry-description">사건 안으로 들어가 <br>당신의 속도로 경험합니다.</span></button>
+    </nav>
+  </div>
+  <div class="intro-foot"><span>무엇을 바라볼지는, 무엇이 정하는가.</span><span>CLICK TO BEGIN</span></div>
+</section>
+<div id="experience" hidden>
+  <header id="header">
+    <button id="brand" class="text-button" aria-label="첫 화면으로 돌아가기">무엇이 <span>여행</span>을<br><span>여행</span>으로 만드는가</button>
+    <div id="menu-zone">
+      <button id="menu-toggle" class="text-button" aria-expanded="false" aria-controls="navigation">메뉴 <span aria-hidden="true">＋</span></button>
+      <nav id="navigation" aria-label="작품 상세">
+        <button data-detail="overview">개요</button>
+        <button data-detail="color">컬러시스템</button>
+        <button data-detail="distance">거리의 관계</button>
+        <button data-detail="indicators">3가지 지표</button>
+        <button data-detail="changes">달라지는것</button>
+      </nav>
+    </div>
+  </header>
+  <aside id="context" aria-label="현재 사건과 거리의 관계">
+    <div class="timeline-head"><span>사건의 흐름</span><span id="event-counter">01 / 12</span></div>
+    <ol id="timeline"></ol>
+    <div class="distance-panel">
+      <div class="panel-label">거리의 관계 <span>세 개의 선분</span></div>
+      <svg id="distance-graph" viewBox="0 0 280 128" role="img" aria-label="나, 실제 맥북, 내가 생각한 맥북의 개념적 거리 관계">
+        <path class="graph-line me" d="M8 107 C27 100 41 88 52 73 C66 79 63 108 86 104 C121 101 130 106 162 104 C183 101 181 56 196 44 C210 25 216 26 224 22 C253 22 269 55 259 91 L254 108"/>
+        <path class="graph-line laptop" d="M8 107 C27 100 41 88 52 73 C73 52 106 40 131 44 C147 46 166 33 180 34 C198 40 206 34 224 22 C253 22 269 55 259 91 L254 108"/>
+        <path class="graph-line imagined" d="M8 107 C27 100 41 88 52 73 C73 59 103 60 131 60 C161 62 154 48 167 50 C178 29 179 32 196 44 C210 25 216 26 224 22 C253 22 269 55 259 91 L254 108"/>
+        <line id="graph-guide" x1="8" x2="8" y1="10" y2="115"/>
+        <circle id="marker-me" class="marker me" r="4" cx="8" cy="107"/>
+        <circle id="marker-laptop" class="marker laptop" r="4" cx="8" cy="107"/>
+        <circle id="marker-imagined" class="marker imagined" r="4" cx="8" cy="107"/>
+      </svg>
+      <div class="graph-legend"><span class="me">나</span><span class="laptop">맥북</span><span class="imagined">내가 생각한 맥북</span></div>
+      <p class="graph-note">실선 · 확인된 위치　점선 · 이동 경로 미확인<br>실제 좌표가 아닌, 원본의 개념적 관계</p>
+    </div>
+  </aside>
+  <div id="view-tools" aria-label="보기 전환">
+    <button id="data-view" aria-pressed="true">자료</button><span>/</span><button id="emotion-view" aria-pressed="false">감정</button><button id="immersive-view" aria-pressed="false">몰입</button><button id="source-peek" aria-pressed="false" aria-label="누르는 동안 원본 잠깐 보기">원본 잠깐 보기</button><button id="replay-scene" aria-label="현재 장면 등장 다시 보기">다시 보기 ↺</button>
+  </div>
+  <div id="journey-progress" aria-hidden="true"></div>
+  <main id="story" tabindex="-1" aria-label="포스터 사건 탐색"></main>
+  <section id="stage-inspector" hidden aria-labelledby="inspection-title">
+    <button id="inspection-close" class="text-button">← 이야기로 돌아가기 <span>닫기 ×</span></button>
+    <div class="inspection-layout"><div id="inspection-visual" class="inspection-visual"></div><div id="inspection-copy" class="inspection-copy" tabindex="0"></div></div>
+  </section>
+  <div class="main-footer"><span id="scene-location">집 · 회의 준비</span><span id="story-progress">01 — 06</span><span class="footer-direction">↓ 사건을 따라 이동</span></div>
+</div>
+<section id="detail" hidden tabindex="-1" aria-labelledby="detail-title">
+  <button id="back" class="text-button">← 이야기로 돌아가기</button>
+  <div id="detail-content"></div>
+</section>
+<div id="iris" aria-hidden="true"><span id="iris-word"></span></div>
+<div id="hint" aria-hidden="true" role="status" aria-live="polite"></div>
+<div id="event-live" class="sr-only" role="status" aria-live="polite"></div>
+<noscript>이 인터랙티브 포스터는 JavaScript를 사용합니다. 브라우저 설정에서 JavaScript를 켜 주세요.</noscript>
+<div id="art-cursor" hidden aria-hidden="true"><i>＋</i><span></span></div>
+<div id="entry-vortex" hidden aria-hidden="true"><div class="vortex-rays"></div><div class="vortex-rings"><i></i><i></i><i></i><i></i></div><div class="vortex-core"></div></div>
+<section id="immersion" hidden aria-labelledby="im-title">
+ <canvas id="im-canvas" aria-hidden="true"></canvas><div id="im-scroll" tabindex="0" aria-label="몰입 여정. 세로로 스크롤해 이동"><div id="im-track"></div></div><div id="im-grain" aria-hidden="true"></div><div id="im-vignette" aria-hidden="true"></div><div id="im-top-progress" aria-hidden="true"></div>
+ <header class="im-header"><div class="im-identity"><span>몰입</span><span>THROUGH THE EVENT</span></div><div class="im-controls"><button id="im-sound" aria-pressed="false">소리 꺼짐</button><button id="im-motion" aria-pressed="false">움직임</button><button id="im-exit">포스터로 돌아가기 ↗</button></div></header>
+ <div id="im-copy"><div class="im-location"><span id="im-counter">01 / 09</span><span id="im-place">집</span></div><h1 id="im-title" tabindex="-1">오늘도, 같은 준비.</h1><p id="im-copy-text"></p><button id="im-action" aria-pressed="false">가방을 챙기다</button><p id="im-help"></p><div id="im-memories" hidden><button data-im-memory="사랑스럽다" aria-pressed="false">사랑스럽다</button><button data-im-memory="오랜만이다" aria-pressed="false">오랜만이다</button><button data-im-memory="여운이남다" aria-pressed="false">여운이남다</button></div></div>
+ <div id="im-loading">장면을 열고 있습니다.</div><div id="im-scroll-cue" aria-hidden="true"><i></i><span>아래로, 당신의 속도로.</span></div>
+ <footer class="im-footer"><div class="im-mode-links"><button id="im-data">자료</button><span>/</span><button id="im-emotion">감정</button></div><nav id="im-chapters" aria-label="몰입 여정의 장면"></nav><div class="im-step-controls"><button id="im-previous">← 이전</button><button id="im-next">다음 장면 →</button><button id="im-restart" hidden>다시 들어가기 ↺</button></div></footer><div id="im-live" class="sr-only" role="status" aria-live="polite"></div>
+</section>
+</body>
+</html>
